@@ -1,11 +1,11 @@
 
 {
-  "name": "wFileDeployer",
+  "name": "wDeployer",
   "version": "0.3.1",
   "description": "",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
   "license": "MIT",
-  "main": "staging/amid/fileDeployer/FileDeployer.ss",
+  "main": "staging/amid/deployer/Deployer.ss",
   "files": [
     "staging/amid",
     "production"
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wandalen///>-->//package.name//<--<//.git"
+    "url": "https://github.com/Wandalen/wDeployer/.git"
   },
   "bugs": {
-    "url": "https://github.com/Wandalen///>-->//package.name//<--<///issues"
+    "url": "https://github.com/Wandalen/wDeployer/issues"
   },
   "dependencies": {
     "wTools": "",
