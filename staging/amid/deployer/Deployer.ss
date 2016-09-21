@@ -108,6 +108,8 @@ var read = function( o )
 
   var self = this;
 
+  debugger;
+
   if( _.strIs( o ) )
   {
     o = { pathFile : o };
@@ -118,7 +120,6 @@ var read = function( o )
   self._tree = _.filesTreeRead( o );
 
   // logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
-  debugger;
 
 }
 
@@ -136,6 +137,8 @@ var write = function( o )
 
   var self = this;
 
+  debugger;
+
   if( _.strIs( o ) )
   {
     o = { pathFile : o };
@@ -146,7 +149,6 @@ var write = function( o )
   var data = _.toStr( self._tree,{ json : 1 } );
   File.writeFileSync( o.pathFile , data );
 
-  debugger;
 
 }
 
