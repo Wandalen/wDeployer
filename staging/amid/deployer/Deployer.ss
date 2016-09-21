@@ -35,7 +35,7 @@ if( typeof module !== 'undefined' )
     require( 'wCopyable' );
   }
 
-  require( '../../../../wFiles/staging/amid/file/Files.ss' );
+  //require( '../../../../wFiles/staging/amid/file/Files.ss' );
 
   if( !wTools.files )
   try
