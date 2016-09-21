@@ -40,7 +40,7 @@ var DeployerTest = function( test )
 
   test.description = 'single file path as string ';
   deployer.read( path + 'file.s' );
-  deployer.write(  path + 'file.json' );
+  deployer.writeToJson(  path + 'file.json' );
   var got = deployer._tree;
   deployer.readFromJson( path + 'file.json' );
   var expected = deployer._tree;
@@ -48,12 +48,11 @@ var DeployerTest = function( test )
 
   test.description = 'single file, path like map property ';
   deployer.read( { pathFile : path + 'file.s' } );
-  deployer.write(  { pathFile : path + 'file.json'} );
+  deployer.writeToJson(  { pathFile : path + 'file.json'} );
   var got = deployer._tree;
   deployer.readFromJson( { pathFile : path + 'file.json'} );
   var expected = deployer._tree;
   test.identical( got,expected );
-
 
 
   /**/
@@ -67,10 +66,10 @@ var DeployerTest = function( test )
       deployer.read( 1 )
     });
 
-    test.description = 'write : incorrect argument type';
+    test.description = 'writeToJson : incorrect argument type';
     test.shouldThrowError( function()
     {
-      deployer.write( 0 )
+      deployer.writeToJson( 0 )
     });
 
 
@@ -80,15 +79,12 @@ var DeployerTest = function( test )
 
 //
 
-
-
-
 var Proto =
 {
 
   name : 'Deployer test',
 
-  tests:
+  tests :
   {
 
     DeployerTest : DeployerTest,

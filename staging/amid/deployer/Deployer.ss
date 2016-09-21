@@ -35,10 +35,12 @@ if( typeof module !== 'undefined' )
     require( 'wCopyable' );
   }
 
+  require( '../../../../wFiles/staging/amid/file/Files.ss' );
+
   if( !wTools.files )
   try
   {
-    require( '../../amid/Files.ss' );
+    require( '../../amid/file/Files.ss' );
   }
   catch( err )
   {
@@ -96,6 +98,12 @@ var exec = function()
 
   self.read( _.pathJoin( _.pathCurrent() , argv[ 2 ] ) );
 
+  logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
+
+  var pathDst = argv[ 3 ] || 'tree.json';
+
+  self.writeToJson( _.pathJoin( _.pathCurrent(), pathDst ) );
+
   return self;
 }
 
@@ -103,23 +111,22 @@ var exec = function()
 
 var read = function( o )
 {
-  _.assert( arguments.length === 1 );
-  _.assert( _.strIs( o ) || _.objectIs( o ) );
-
   var self = this;
 
-  debugger;
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
 
   if( _.strIs( o ) )
   {
     o = { pathFile : o };
   }
 
-  _.routineOptions( read, o );
+  self.pathTarget = o.pathFile;
+
+  self._optionsSupplement( o );
+  _.routineOptions( read, o )
 
   self._tree = _.filesTreeRead( o );
-
-  // logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
 
 }
 
@@ -128,9 +135,69 @@ read.defaults =
   pathFile : null,
 }
 
+read.defaults.__proto__ = _.filesTreeRead.defaults;
+
 //
 
 var write = function( o )
+{
+  var self = this;
+
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
+  debugger;
+
+  if( _.strIs( o ) )
+  {
+    o = { pathFile : o };
+  }
+
+  o.tree = self._tree;
+  self.pathTarget = o.pathFile;
+
+  self._optionsSupplement( o );
+  _.routineOptions( write, o )
+
+  return _.filesTreeWrite( o );
+}
+
+write.defaults =
+{
+  pathFile : null,
+}
+
+write.defaults.__proto__ = _.filesTreeWrite.defaults;
+
+//
+
+var readFromJson = function( o )
+{
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
+  var self = this;
+
+  if( _.strIs( o ) )
+  {
+    o = { pathFile : o };
+  }
+
+  self._optionsSupplement( o,0 );
+  _.routineOptions( readFromJson, o );
+
+  self._tree = _.fileReadJson( o.pathFile );
+
+}
+
+readFromJson.defaults =
+{
+  pathFile : null,
+}
+
+//
+
+var writeToJson = function( o )
 {
   _.assert( arguments.length === 1 );
   _.assert( _.strIs( o ) || _.objectIs( o ) );
@@ -144,17 +211,18 @@ var write = function( o )
     o = { pathFile : o };
   }
 
-  _.routineOptions( write, o );
+  self._optionsSupplement( o,0 );
+  _.routineOptions( writeToJson, o );
 
   var data = _.toStr( self._tree,{ json : 1 } );
   File.writeFileSync( o.pathFile , data );
 
-
 }
 
-write.defaults =
+writeToJson.defaults =
 {
   pathFile : null,
+  usingLogging : 0,
 }
 
 //
@@ -199,48 +267,37 @@ fileProviderMake.defaults =
 
 //
 
-var _writeTreeIntoFile = function( o )
+var _optionsSupplement = function( options,forTree )
 {
   var self = this;
 
-  _.assert( arguments.length === 1 );
+  if( options.usingLogging === undefined )
+  options.usingLogging = self.usingLogging;
 
-  if( _.strIs( o ) )
-  {
-    o = { pathFile : o };
-  }
-
-  o.tree = self._tree;
-
-  x
-
-
+  if( forTree )
+  if( options.pathFile === undefined )
+  options.pathFile = self.pathTarget;
 
 }
 
 //
 
-var readFromJson = function ( o )
-{
-  _.assert( arguments.length === 1 );
-  _.assert( _.strIs( o ) || _.objectIs( o ) );
-
-  var self = this;
-
-  if( _.strIs( o ) )
-  {
-    o = { pathFile : o };
-  }
-
-  _.routineOptions( readFromJson, o )
-
-  self._tree =  _.fileReadJson( o.pathFile );
-}
-
-readFromJson.defaults =
-{
-  pathFile : null,
-}
+// var _writeTreeIntoFile = function( o )
+// {
+//   var self = this;
+//
+//   _.assert( arguments.length === 1 );
+//
+//   if( _.strIs( o ) )
+//   {
+//     o = { pathFile : o };
+//   }
+//
+//   o.tree = self._tree;
+//
+//   x
+//
+// }
 
 // --
 //
@@ -248,6 +305,8 @@ readFromJson.defaults =
 
 var Composes =
 {
+  pathTarget : null,
+  usingLogging : 1,
 }
 
 var Aggregates =
@@ -279,14 +338,19 @@ var Proto =
 
   read : read,
   write : write,
+
+  readFromJson : readFromJson,
+  writeToJson : writeToJson,
+
   publish : publish,
 
   toStr : toStr,
 
   fileProviderMake : fileProviderMake,
 
-  _writeTreeIntoFile : _writeTreeIntoFile,
-  readFromJson : readFromJson,
+  _optionsSupplement : _optionsSupplement,
+
+  //_writeTreeIntoFile : _writeTreeIntoFile,
 
   /**/
 
