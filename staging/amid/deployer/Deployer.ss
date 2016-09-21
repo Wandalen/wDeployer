@@ -216,6 +216,30 @@ var _writeTreeIntoFile = function( o )
 
 }
 
+//
+
+var readFromJson = function ( o )
+{
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
+  var self = this;
+
+  if( _.strIs( o ) )
+  {
+    o = { pathFile : o };
+  }
+
+  _.routineOptions( readFromJson, o )
+
+  self._tree =  _.fileReadJson( o.pathFile );
+}
+
+readFromJson.defaults =
+{
+  pathFile : null,
+}
+
 // --
 //
 // --
@@ -260,6 +284,7 @@ var Proto =
   fileProviderMake : fileProviderMake,
 
   _writeTreeIntoFile : _writeTreeIntoFile,
+  readFromJson : readFromJson,
 
   /**/
 
