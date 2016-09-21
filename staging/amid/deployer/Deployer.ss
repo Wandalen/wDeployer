@@ -103,19 +103,23 @@ var exec = function()
 
 var read = function( o )
 {
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
   var self = this;
 
-  _.assert( arguments.length === 1 );
+  debugger;
 
   if( _.strIs( o ) )
   {
     o = { pathFile : o };
   }
 
+  _.routineOptions( read, o );
+
   self._tree = _.filesTreeRead( o );
 
-  logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
-  debugger;
+  // logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
 
 }
 
@@ -128,9 +132,23 @@ read.defaults =
 
 var write = function( o )
 {
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
   var self = this;
 
   debugger;
+
+  if( _.strIs( o ) )
+  {
+    o = { pathFile : o };
+  }
+
+  _.routineOptions( write, o );
+
+  var data = _.toStr( self._tree,{ json : 1 } );
+  File.writeFileSync( o.pathFile , data );
+
 
 }
 
@@ -200,6 +218,30 @@ var _writeTreeIntoFile = function( o )
 
 }
 
+//
+
+var readFromJson = function ( o )
+{
+  _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
+  var self = this;
+
+  if( _.strIs( o ) )
+  {
+    o = { pathFile : o };
+  }
+
+  _.routineOptions( readFromJson, o )
+
+  self._tree =  _.fileReadJson( o.pathFile );
+}
+
+readFromJson.defaults =
+{
+  pathFile : null,
+}
+
 // --
 //
 // --
@@ -244,6 +286,7 @@ var Proto =
   fileProviderMake : fileProviderMake,
 
   _writeTreeIntoFile : _writeTreeIntoFile,
+  readFromJson : readFromJson,
 
   /**/
 
