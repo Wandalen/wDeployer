@@ -41,7 +41,7 @@ var DeployerTest = function( test )
   test.description = 'single file path as string ';
   deployer.read( path + 'file.s' );
   deployer.write(  path + 'file.json' );
-  var got = Object.assign( { }, deployer._tree );
+  var got = deployer._tree;
   deployer.readFromJson( path + 'file.json' );
   var expected = deployer._tree;
   test.identical( got,expected );
@@ -49,7 +49,7 @@ var DeployerTest = function( test )
   test.description = 'single file, path like map property ';
   deployer.read( { pathFile : path + 'file.s' } );
   deployer.write(  { pathFile : path + 'file.json'} );
-  var got = Object.assign( { }, deployer._tree );
+  var got = deployer._tree;
   deployer.readFromJson( { pathFile : path + 'file.json'} );
   var expected = deployer._tree;
   test.identical( got,expected );
