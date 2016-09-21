@@ -103,18 +103,21 @@ var exec = function()
 
 var read = function( o )
 {
-  var self = this;
-
   _.assert( arguments.length === 1 );
+  _.assert( _.strIs( o ) || _.objectIs( o ) );
+
+  var self = this;
 
   if( _.strIs( o ) )
   {
     o = { pathFile : o };
   }
 
+  _.routineOptions( read, o );
+
   self._tree = _.filesTreeRead( o );
 
-  logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
+  // logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
   debugger;
 
 }
