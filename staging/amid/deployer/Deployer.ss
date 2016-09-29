@@ -56,7 +56,7 @@ if( typeof module !== 'undefined' )
 
 var _ = wTools;
 var Parent = null;
-var Self = function wFileDeployer( o )
+var Self = function wDeployer( o )
 {
   if( !( this instanceof Self ) )
   if( o instanceof Self )

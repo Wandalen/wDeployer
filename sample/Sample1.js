@@ -1,8 +1,15 @@
 
 
 if( typeof module !== 'undefined' )
-require( 'wTools' );
+require( 'wDeployer' );
+
 var _ = wTools;
+var deployer = new wDeployer();
+
+deployer.read( __dirname );
+
+logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
+
+deployer.writeToJson( _.pathJoin( __dirname, 'tree.json' ) );
 
 /**/
-
