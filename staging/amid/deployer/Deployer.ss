@@ -82,6 +82,11 @@ var init = function( o )
   if( o )
   self.copy( o );
 
+  /* default file provider, it's HardDrive for backend */
+
+  if( !self.files )
+  self.files = _.FileProvider.def();
+
 }
 
 //
@@ -127,7 +132,7 @@ var read = function( o )
   self._optionsSupplement( o );
   _.routineOptions( read, o )
 
-  self._tree = self.filesTreeRead( o );
+  self._tree = self.files.filesTreeRead( o );
 
 }
 
@@ -160,7 +165,7 @@ var write = function( o )
   self._optionsSupplement( o );
   _.routineOptions( write, o )
 
-  return self.filesTreeWrite( o );
+  return self.files.filesTreeWrite( o );
 }
 
 write.defaults =
@@ -187,7 +192,7 @@ var readFromJson = function( o )
   self._optionsSupplement( o,0 );
   _.routineOptions( readFromJson, o );
 
-  self._tree = self.fileReadJson( o.pathFile );
+  self._tree = self.files.fileReadJson( o.pathFile );
 
 }
 
@@ -308,6 +313,7 @@ var Composes =
 {
   pathTarget : null,
   usingLogging : 1,
+  files : null,
 }
 
 var Aggregates =
