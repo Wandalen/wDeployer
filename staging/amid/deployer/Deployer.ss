@@ -56,6 +56,7 @@ if( typeof module !== 'undefined' )
 
 var _ = wTools;
 var Parent = null;
+var AdvancedMixin = _.FileProvider.AdvancedMixin;
 var Self = function wDeployer( o )
 {
   if( !( this instanceof Self ) )
@@ -126,7 +127,7 @@ var read = function( o )
   self._optionsSupplement( o );
   _.routineOptions( read, o )
 
-  self._tree = _.filesTreeRead( o );
+  self._tree = self.filesTreeRead( o );
 
 }
 
@@ -135,7 +136,7 @@ read.defaults =
   pathFile : null,
 }
 
-read.defaults.__proto__ = _.filesTreeRead.defaults;
+read.defaults.__proto__ = _.FileProvider.AdvancedMixin.filesTreeRead.defaults;
 
 //
 
@@ -159,7 +160,7 @@ var write = function( o )
   self._optionsSupplement( o );
   _.routineOptions( write, o )
 
-  return _.filesTreeWrite( o );
+  return self.filesTreeWrite( o );
 }
 
 write.defaults =
@@ -167,7 +168,7 @@ write.defaults =
   pathFile : null,
 }
 
-write.defaults.__proto__ = _.filesTreeWrite.defaults;
+write.defaults.__proto__ = _.FileProvider.AdvancedMixin.filesTreeWrite.defaults;
 
 //
 
@@ -186,7 +187,7 @@ var readFromJson = function( o )
   self._optionsSupplement( o,0 );
   _.routineOptions( readFromJson, o );
 
-  self._tree = _.fileReadJson( o.pathFile );
+  self._tree = self.fileReadJson( o.pathFile );
 
 }
 
