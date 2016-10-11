@@ -201,6 +201,10 @@ readFromJson.defaults =
   pathFile : null,
 }
 
+readFromJson.defaults.__proto__ = _.FileProvider.Abstract.prototype.fileReadJson.defaults;
+
+console.log( _.toStr( readFromJson.defaults.__proto__ ) ); 
+
 //
 
 var writeToJson = function( o )
