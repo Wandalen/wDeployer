@@ -1,11 +1,11 @@
-( function _Deployer_ss_() {
+( function _Deployer_s_() {
 
 'use strict';
 
 /*
 
 try :
-node staging/amid/fileDeployer/FileDeployer.ss ./staging
+node staging/amid/fileDeployer/FileDeployer.s ./staging
 
 */
 
@@ -203,7 +203,7 @@ readFromJson.defaults =
 
 readFromJson.defaults.__proto__ = _.FileProvider.Abstract.prototype.fileReadJson.defaults;
 
-console.log( _.toStr( readFromJson.defaults.__proto__ ) ); 
+console.log( _.toStr( readFromJson.defaults.__proto__ ) );
 
 //
 
