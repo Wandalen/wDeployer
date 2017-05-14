@@ -17,11 +17,14 @@ if( typeof module !== 'undefined' )
 
   require( 'wTools' );
 
-
-  if( require( 'fs' ).existsSync( __dirname + '/../../amid/diagnostic/Testing.debug.s' ) )
-  require( '../../amid/diagnostic/Testing.debug.s' );
-  else
-  require( 'wTesting' );
+  try
+  {
+    require( '../../amid/diagnostic/Testing.debug.s' );
+  }
+  catch( err )
+  {
+    require( 'wTesting' );
+  }
 
 }
 

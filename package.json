@@ -1,6 +1,7 @@
 {
   "name": "wDeployer",
   "version": "0.3.6",
+  "engine" : "node >= 5.0.0",
   "description": "",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
   "license": "MIT",
@@ -10,7 +11,7 @@
     "production"
   ],
   "scripts": {
-    "test": "node ./staging/amid/z.test/Test.s",
+    "test": "wtest staging",
     "make_doc": "./doc.sh"
   },
   "repository": {
