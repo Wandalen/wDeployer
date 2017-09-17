@@ -27,7 +27,8 @@
     "wCopyable": ""
   },
   "devDependencies": {
-    "wTesting": ""
+    "wTesting": "",
+    "wDeployer": "."
   },
   "keywords": [
     "wTools"
