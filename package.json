@@ -1,6 +1,6 @@
 {
   "name": "wDeployer",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "engine": "node >= 6.0.0",
   "description": "",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
