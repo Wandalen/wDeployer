@@ -5,15 +5,15 @@
 /*
 
 try :
-node staging/amid/fileDeployer/FileDeployer.s ./staging
+node staging/dwtools/amid/fileDeployer/FileDeployer.s ./staging
 
 */
 
 if( typeof module !== 'undefined' )
 {
 
-  // require( '../../../../wTools/staging/abase/wTools.s' );
-  // require( '../../../../wFiles/staging/amid/file/Files.ss' );
+  // require( '../../../../wTools/staging/dwtools/abase/wTools.s' );
+  // require( '../../../../wFiles/staging/dwtools/amid/file/Files.ss' );
 
   if( typeof wBase === 'undefined' )
   try
@@ -35,7 +35,7 @@ if( typeof module !== 'undefined' )
     require( 'wCopyable' );
   }
 
-  //require( '../../../../wFiles/staging/amid/file/Files.ss' );
+  //require( '../../../../wFiles/staging/dwtools/amid/file/Files.ss' );
 
   if( !wTools.files )
   try
@@ -376,7 +376,7 @@ var Proto =
 
 //
 
-_.protoMake
+_.classMake
 ({
   constructor : Self,
   parent : Parent,
