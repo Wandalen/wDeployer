@@ -1,16 +1,17 @@
 {
   "name": "wDeployer",
-  "version": "0.3.6",
+  "version": "0.3.9",
+  "engine": "node >= 6.0.0",
   "description": "",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
   "license": "MIT",
-  "main": "staging/amid/deployer/Deployer.ss",
+  "main": "staging/dwtools/amid/deployer/Deployer.ss",
   "files": [
-    "staging/amid",
+    "staging/dwtools/amid",
     "production"
   ],
   "scripts": {
-    "test": "node ./staging/amid/z.test/Test.s",
+    "test": "wtest staging",
     "make_doc": "./doc.sh"
   },
   "repository": {
@@ -26,7 +27,8 @@
     "wCopyable": ""
   },
   "devDependencies": {
-    "wTesting": ""
+    "wTesting": "",
+    "wDeployer": "."
   },
   "keywords": [
     "wTools"

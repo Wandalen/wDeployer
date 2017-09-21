@@ -1,8 +1,8 @@
 if( typeof module !== 'undefined' )
 {
   require( 'wTools' )
-  require( '../../wFiles/staging/amid/file/Files.ss' )
-  require( '../../wDeployer/staging/amid/deployer/Deployer.ss' )
+  require( '../../wFiles/staging/dwtools/amid/file/Files.ss' )
+  require( '../../wDeployer/staging/dwtools/amid/deployer/Deployer.ss' )
 
 
 
