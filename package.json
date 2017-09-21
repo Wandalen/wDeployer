@@ -5,9 +5,9 @@
   "description": "",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
   "license": "MIT",
-  "main": "staging/dwtools/amid/deployer/Deployer.ss",
+  "main": "staging/dwtools/amid/deployer/Deployer.s",
   "files": [
-    "staging/dwtools/amid",
+    "staging/dwtools/amid/deployer",
     "production"
   ],
   "scripts": {

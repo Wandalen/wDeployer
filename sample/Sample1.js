@@ -1,5 +1,3 @@
-
-
 if( typeof module !== 'undefined' )
 require( 'wDeployer' );
 

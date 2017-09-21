@@ -56,7 +56,7 @@ if( typeof module !== 'undefined' )
 
 var _ = wTools;
 var Parent = null;
-var AdvancedMixin = _.FileProvider.AdvancedMixin;
+debugger
 var Self = function wDeployer( o )
 {
   if( !( this instanceof Self ) )
@@ -74,7 +74,7 @@ var init = function( o )
   var self = this;
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.protoComplementInstance( self );
+  _.instanceInit( self );
 
   if( self.Self === Self )
   Object.preventExtensions( self );
@@ -85,7 +85,7 @@ var init = function( o )
   /* default file provider, it's HardDrive for backend */
 
   if( !self.files )
-  self.files = _.FileProvider.def();
+  self.files = _.fileProvider;
 
 }
 
@@ -132,16 +132,17 @@ var read = function( o )
   self._optionsSupplement( o );
   _.routineOptions( read, o )
 
-  self._tree = self.files.filesTreeRead( o );
+  self._tree = self.files.filesTreeRead( o.pathFile );
 
 }
 
 read.defaults =
 {
   pathFile : null,
+  usingLogging : 0
 }
 
-read.defaults.__proto__ = _.FileProvider.AdvancedMixin.filesTreeRead.defaults;
+read.defaults.__proto__ = _.FileProvider.Secondary.prototype.filesTreeRead.defaults;
 
 //
 
@@ -165,7 +166,7 @@ var write = function( o )
   self._optionsSupplement( o );
   _.routineOptions( write, o )
 
-  return self.files.filesTreeWrite( o );
+  return self.files.filesTreeWrite( o.pathFile );
 }
 
 write.defaults =
@@ -173,7 +174,7 @@ write.defaults =
   pathFile : null,
 }
 
-write.defaults.__proto__ = _.FileProvider.AdvancedMixin.filesTreeWrite.defaults;
+write.defaults.__proto__ = _.FileProvider.Secondary.prototype.filesTreeWrite.defaults;
 
 //
 
@@ -199,9 +200,10 @@ var readFromJson = function( o )
 readFromJson.defaults =
 {
   pathFile : null,
+  usingLogging : 0
 }
 
-readFromJson.defaults.__proto__ = _.FileProvider.Abstract.prototype.fileReadJson.defaults;
+readFromJson.defaults.__proto__ = _.FileProvider.Partial.prototype.fileReadJson.defaults;
 
 console.log( _.toStr( readFromJson.defaults.__proto__ ) );
 
@@ -224,7 +226,7 @@ var writeToJson = function( o )
   self._optionsSupplement( o,0 );
   _.routineOptions( writeToJson, o );
 
-  var data = _.toStr( self._tree,{ json : 1 } );
+  var data = _.toStr( self._tree,{ jsonLike : 1 } );
   File.writeFileSync( o.pathFile , data );
 
 }
@@ -378,7 +380,7 @@ var Proto =
 
 _.classMake
 ({
-  constructor : Self,
+  cls : Self,
   parent : Parent,
   extend : Proto,
 });
