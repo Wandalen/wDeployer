@@ -28,36 +28,21 @@ if( typeof module !== 'undefined' )
 
 }
 
-var _ = wTools;
 var deployer = require( '../deployer/Deployer.s' )(  );
 var fs = require('fs');
+
+var _ = wTools;
 var Self = {};
 
-var path;
+var path = _.dirTempMake( _.pathDir( __dirname ) );
 var fileTestDir = _.pathResolve( _.pathRealMainDir(), '../file.test' );
-function makeTestDir()
-{
-  path = _.dirTempFor
-  ({
-    packageName : Self.name,
-    packagePath : fileTestDir
-  });
 
-  path = _.fileProvider.pathNativize( path );
-
-  if( _.fileProvider.fileStat( path ) )
-  _.fileProvider.fileDelete( path );
-
-  _.fileProvider.directoryMake( path );
-
-  console.log( path )
-}
+//
 
 function cleanTestDir()
 {
   _.fileProvider.fileDelete( path );
 }
-
 
 //
 
@@ -114,7 +99,6 @@ var Proto =
   name : 'Deployer test',
   silencing : 1,
 
-  onSuiteBegin : makeTestDir,
   onSuiteEnd : cleanTestDir,
 
   tests :
