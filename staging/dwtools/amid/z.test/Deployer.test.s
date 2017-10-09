@@ -28,32 +28,43 @@ if( typeof module !== 'undefined' )
 
 }
 
-var _ = wTools;
-var deployer = require( '../deployer/Deployer.ss' )(  );
+var deployer = require( '../deployer/Deployer.s' )(  );
 var fs = require('fs');
+
+var _ = wTools;
 var Self = {};
 
+var path = _.dirTempMake( _.pathDir( __dirname ) );
+var fileTestDir = _.pathResolve( _.pathRealMainDir(), '../file.test' );
 
-var path = __dirname + '/../../../file.test/';
+//
+
+function cleanTestDir()
+{
+  _.fileProvider.fileDelete( path );
+}
 
 //
 
 var DeployerTest = function( test )
 {
+  var pathSrc = _.pathJoin( fileTestDir, 'file.s' );
+  var pathDst = _.pathJoin( path, 'file.json' )
 
   test.description = 'single file path as string ';
-  deployer.read( path + 'file.s' );
-  deployer.writeToJson(  path + 'file.json' );
+  debugger
+  deployer.read( pathSrc );
+  deployer.writeToJson(  pathDst );
   var got = deployer._tree;
-  deployer.readFromJson( path + 'file.json' );
+  deployer.readFromJson( pathDst );
   var expected = deployer._tree;
   test.identical( got,expected );
 
   test.description = 'single file, path like map property ';
-  deployer.read( { pathFile : path + 'file.s' } );
-  deployer.writeToJson(  { pathFile : path + 'file.json'} );
+  deployer.read( { pathFile : pathSrc } );
+  deployer.writeToJson(  { pathFile : pathDst} );
   var got = deployer._tree;
-  deployer.readFromJson( { pathFile : path + 'file.json'} );
+  deployer.readFromJson( { pathFile : pathDst} );
   var expected = deployer._tree;
   test.identical( got,expected );
 
@@ -86,20 +97,20 @@ var Proto =
 {
 
   name : 'Deployer test',
+  silencing : 1,
+
+  onSuiteEnd : cleanTestDir,
 
   tests :
   {
-
     DeployerTest : DeployerTest,
-
-
   }
 
 }
 
 _.mapExtend( Self,Proto );
-
+Self = wTestSuite( Self );
 if( typeof module !== 'undefined' && !module.parent )
-_.Testing.test( Self );
+_.Tester.test( Self.name );
 
 } )( );
