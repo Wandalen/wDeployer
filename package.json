@@ -3,7 +3,7 @@
   "version": "0.3.11",
   "engine": "node >= 6.0.0",
   "description": "",
-  "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
+  "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
   "license": "MIT",
   "main": "staging/dwtools/amid/deployer/Deployer.s",
   "files": [
