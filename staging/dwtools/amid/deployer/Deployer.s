@@ -102,13 +102,13 @@ var exec = function()
 
   console.log( 'argv :',argv );
 
-  self.read( _.pathJoin( _.pathCurrent() , argv[ 2 ] ) );
+  self.read( _.join( _.current() , argv[ 2 ] ) );
 
   logger.log( 'tree :\n' + _.toStr( self._tree,{ levels : 3 } ) );
 
-  var pathDst = argv[ 3 ] || 'tree.json';
+  var dst = argv[ 3 ] || 'tree.json';
 
-  self.writeToJson( _.pathJoin( _.pathCurrent(), pathDst ) );
+  self.writeToJson( _.join( _.current(), dst ) );
 
   return self;
 }
@@ -124,21 +124,21 @@ var read = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
-  self.pathTarget = o.pathFile;
+  self.target = o.file;
 
   self._optionsSupplement( o );
   _.routineOptions( read, o )
 
-  self._tree = self.files.filesTreeRead( o.pathFile );
+  self._tree = self.files.filesTreeRead( o.file );
 
 }
 
 read.defaults =
 {
-  pathFile : null,
+  file : null,
   usingLogging : 0
 }
 
@@ -157,21 +157,21 @@ var write = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
   o.tree = self._tree;
-  self.pathTarget = o.pathFile;
+  self.target = o.file;
 
   self._optionsSupplement( o );
   _.routineOptions( write, o )
 
-  return self.files.filesTreeWrite( o.pathFile );
+  return self.files.filesTreeWrite( o.file );
 }
 
 write.defaults =
 {
-  pathFile : null,
+  file : null,
 }
 
 write.defaults.__proto__ = _.FileProvider.Secondary.prototype.filesTreeWrite.defaults;
@@ -187,19 +187,19 @@ var readFromJson = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
   self._optionsSupplement( o,0 );
   _.routineOptions( readFromJson, o );
 
-  self._tree = self.files.fileReadJson( o.pathFile );
+  self._tree = self.files.fileReadJson( o.file );
 
 }
 
 readFromJson.defaults =
 {
-  pathFile : null,
+  file : null,
   usingLogging : 0
 }
 
@@ -220,20 +220,20 @@ var writeToJson = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
   self._optionsSupplement( o,0 );
   _.routineOptions( writeToJson, o );
 
   var data = _.toStr( self._tree,{ jsonLike : 1 } );
-  File.writeFileSync( o.pathFile , data );
+  File.writeFileSync( o.file , data );
 
 }
 
 writeToJson.defaults =
 {
-  pathFile : null,
+  file : null,
   usingLogging : 0,
 }
 
@@ -287,8 +287,8 @@ var _optionsSupplement = function( options,forTree )
   options.usingLogging = self.usingLogging;
 
   if( forTree )
-  if( options.pathFile === undefined )
-  options.pathFile = self.pathTarget;
+  if( options.file === undefined )
+  options.file = self.target;
 
 }
 
@@ -302,7 +302,7 @@ var _optionsSupplement = function( options,forTree )
 //
 //   if( _.strIs( o ) )
 //   {
-//     o = { pathFile : o };
+//     o = { file : o };
 //   }
 //
 //   o.tree = self._tree;
@@ -317,7 +317,7 @@ var _optionsSupplement = function( options,forTree )
 
 var Composes =
 {
-  pathTarget : null,
+  target : null,
   usingLogging : 1,
   files : null,
 }

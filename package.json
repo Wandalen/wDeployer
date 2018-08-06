@@ -1,6 +1,7 @@
 {
   "name": "wDeployer",
   "version": "0.3.12",
+  "enabled": 0,
   "engine": "node >= 6.0.0",
   "description": "",
   "author": "Kostiantyn Wandalen <wanalen@willbe.so>",

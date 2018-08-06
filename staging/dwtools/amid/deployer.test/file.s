@@ -7,7 +7,7 @@ var read = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
   _.routineOptions( read, o );
@@ -21,7 +21,7 @@ var read = function( o )
 
 read.defaults =
 {
-  pathFile : null,
+  file : null,
 }
 
 //
@@ -35,13 +35,13 @@ var write = function( o )
 
   if( _.strIs( o ) )
   {
-    o = { pathFile : o };
+    o = { file : o };
   }
 
   _.routineOptions( write, o );
 
   var data = _.toStr( self._tree,{ json : 1 } );
-  File.writeFileSync( o.pathFile , data );
+  File.writeFileSync( o.file , data );
 
   debugger;
 
@@ -49,5 +49,5 @@ var write = function( o )
 
 write.defaults =
 {
-  pathFile : null,
+  file : null,
 }

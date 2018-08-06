@@ -34,8 +34,8 @@ var fs = require('fs');
 var _ = wTools;
 var Self = {};
 
-var path = _.dirTempMake( _.pathDir( __dirname ) );
-var fileTestDir = _.pathResolve( _.pathRealMainDir(), '../file.test' );
+var path = _.dirTempMake( _.dir( __dirname ) );
+var fileTestDir = _.resolve( _.realMainDir(), '../file.test' );
 
 //
 
@@ -48,23 +48,23 @@ function cleanTestDir()
 
 var DeployerTest = function( test )
 {
-  var pathSrc = _.pathJoin( fileTestDir, 'file.s' );
-  var pathDst = _.pathJoin( path, 'file.json' )
+  var src = _.join( fileTestDir, 'file.s' );
+  var dst = _.join( path, 'file.json' )
 
   test.description = 'single file path as string ';
   debugger
-  deployer.read( pathSrc );
-  deployer.writeToJson(  pathDst );
+  deployer.read( src );
+  deployer.writeToJson(  dst );
   var got = deployer._tree;
-  deployer.readFromJson( pathDst );
+  deployer.readFromJson( dst );
   var expected = deployer._tree;
   test.identical( got,expected );
 
   test.description = 'single file, path like map property ';
-  deployer.read( { pathFile : pathSrc } );
-  deployer.writeToJson(  { pathFile : pathDst} );
+  deployer.read( { file : src } );
+  deployer.writeToJson(  { file : dst} );
   var got = deployer._tree;
-  deployer.readFromJson( { pathFile : pathDst} );
+  deployer.readFromJson( { file : dst} );
   var expected = deployer._tree;
   test.identical( got,expected );
 
