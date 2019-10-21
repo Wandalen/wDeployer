@@ -21,7 +21,7 @@ about :
 path :
 
   repository : git+https://github.com/Wandalen/wDeployer.git
-  remotes :
+  origins :
    - git+https:///github.com/Wandalen/wDeployer.git
    - npm:///wdeployer
   bugs : https://github.com/Wandalen/wDeployer/issues
